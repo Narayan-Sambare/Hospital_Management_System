@@ -1,0 +1,101 @@
+{% extends 'navigation.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+  .service-card{
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(52, 58, 64, 0.08);
+    border: none;
+    height: 100%;
+  }
+  .service-icon{
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    background: rgba(93, 169, 233, 0.18);
+    color: #1C7ED6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 0.9rem;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<section id="services">
+  <div class="container mt-5 pb-5">
+    <div class="section-title">
+      <div class="section-subtitle">Services</div>
+      <h2 class="section-main-title">Care built around your needs</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon"><i class="fas fa-stethoscope"></i></div>
+            <h5 class="mb-2">Outpatient Consultation</h5>
+            <p class="text-muted mb-0">Doctor consultations with quick registration and appointment support.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon"><i class="fas fa-vial"></i></div>
+            <h5 class="mb-2">Diagnostics & Lab</h5>
+            <p class="text-muted mb-0">Routine tests and reports with clear tracking and timely updates.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon"><i class="fas fa-user-md"></i></div>
+            <h5 class="mb-2">Specialist Care</h5>
+            <p class="text-muted mb-0">Access to specialist doctors for focused treatment and follow-ups.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon"><i class="fas fa-procedures"></i></div>
+            <h5 class="mb-2">Inpatient Services</h5>
+            <p class="text-muted mb-0">Comfortable care with coordinated nursing and doctor rounds.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon"><i class="fas fa-ambulance"></i></div>
+            <h5 class="mb-2">Emergency Support</h5>
+            <p class="text-muted mb-0">Fast response support for urgent medical needs and guidance.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card service-card">
+          <div class="card-body">
+            <div class="service-icon"><i class="fas fa-pills"></i></div>
+            <h5 class="mb-2">Pharmacy</h5>
+            <p class="text-muted mb-0">Medicine availability with a smooth prescription-to-dispense flow.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+

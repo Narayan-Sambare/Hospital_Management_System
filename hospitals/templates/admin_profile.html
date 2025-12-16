@@ -1,0 +1,65 @@
+{% extends 'admin_nav.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid py-4">
+  {% if success %}
+    <div class="alert alert-success">Password changed successfully.</div>
+  {% endif %}
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="p-2" style="border-bottom: 2px solid #5DA9E9">Profile</h5>
+          <p class="text-muted mb-4">Logged in as: <strong>{{ request.user.username }}</strong></p>
+
+          <h6 class="mb-3">Change Password</h6>
+          <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label>Current Password</label>
+              <input id="oldPwd" type="password" name="old_password" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input id="newPwd1" type="password" name="new_password1" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input id="newPwd2" type="password" name="new_password2" class="form-control" required>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="show-pass">
+                <input type="checkbox" id="toggleProfilePwds">
+                Show passwords
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var cb = document.getElementById('toggleProfilePwds');
+    var inputs = [document.getElementById('oldPwd'), document.getElementById('newPwd1'), document.getElementById('newPwd2')].filter(Boolean);
+    if (!cb || inputs.length === 0) return;
+    cb.addEventListener('change', function () {
+      var t = cb.checked ? 'text' : 'password';
+      inputs.forEach(function (i) { i.type = t; });
+    });
+  })();
+</script>
+
+{% endblock content %}
+
+

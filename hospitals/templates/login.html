@@ -1,0 +1,134 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block extra_head %}
+<title>Admin Login</title>
+<style type="text/css">
+  .login-wrap{
+    min-height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem 3rem;
+  }
+  .login-card{
+    width: 100%;
+    max-width: 520px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(52, 58, 64, 0.10);
+    overflow: hidden;
+  }
+  .login-card .card-header{
+    background: var(--primary);
+    color: #fff;
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+  }
+  .login-card .card-header .title{
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+  .login-card .card-header .subtitle{
+    margin: 0.25rem 0 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+  }
+  .login-card .card-body{
+    padding: 1.5rem;
+    background: var(--background);
+  }
+  .login-card label{
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .login-card .form-control{
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+  }
+  .login-actions{
+    margin-top: 0.5rem;
+  }
+  .show-pass{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    user-select: none;
+    color: rgba(52, 58, 64, 0.8);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+
+{% if error == "no" %}
+     <script>
+	   alert('Logged In Successfully');
+       window.location.href = "{% url 'admin_home' %}";
+     </script>
+{% endif %}
+
+{% if error == "invalid" %}
+     <script>
+	    alert('Invalid username or password. Try Again');
+     </script>
+{% endif %}
+
+{% if error == "notstaff" %}
+     <script>
+	    alert('This account is not an admin account.');
+     </script>
+{% endif %}
+
+{% if error == "yes" %}
+     <script>
+	    alert('Something went wrong, Try Again');
+     </script>
+{% endif %}
+
+<div class="login-wrap">
+  <div class="card login-card">
+    <div class="card-header">
+      <h4 class="title">Admin Login</h4>
+      <div class="subtitle">Sign in to manage doctors, patients, and appointments.</div>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="uname" class="form-control" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input id="loginPwd" type="password" name="pwd" class="form-control" placeholder="Enter password" required>
+          <label class="show-pass">
+            <input type="checkbox" id="toggleLoginPwd">
+            Show password
+          </label>
+        </div>
+        <div class="login-actions">
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+          <a href="{% url 'index' %}" class="btn btn-outline-primary btn-block">Back to Home</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var cb = document.getElementById('toggleLoginPwd');
+    var input = document.getElementById('loginPwd');
+    if (!cb || !input) return;
+    cb.addEventListener('change', function () {
+      input.type = cb.checked ? 'text' : 'password';
+    });
+  })();
+</script>
+
+{% endblock%}

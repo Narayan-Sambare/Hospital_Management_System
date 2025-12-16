@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <title>Hospital_Management_System</title>
+  <link rel="icon" href="images/favicon.ico">
+  <meta charset="utf-8">
+  <meta name="viewport" name="developer name Snaket Sambare"content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'theme.css' %}">
+  <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  {# DataTables removed from global layout to avoid slowing down every page #}
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* prevent horizontal scrollbar */
+}
+/* Hide scrollbars (keep scrolling enabled) */
+body {
+  padding-top: 72px; /* space for fixed navbar */
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 20%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+/* (removed) myTable table styles */
+
+.button {
+  background-color: orange; /* Green */
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 1px 1px;
+  cursor: pointer;
+}
+
+.button1 {border-radius: 15px;}
+
+  /* Make the image fully responsive */
+  .carousel-inner img {
+      width: 100%;
+      height: 100%;
+  }
+</style>
+
+<style>
+/* Ensure no visible scrollbars (WebKit) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.nav-link:hover{
+  color: #fff !important;
+  font-weight:bold;
+  background-color : #1C7ED6;
+  border-radius:10px;
+}
+.nav-link{
+  font-weight:bold;
+}
+/* Small spacing between navbar items */
+.navbar-nav .nav-item {
+  margin: 0.15rem 0.35rem;
+}
+
+.navbar-brand{
+
+  text-shadow: 1px 1px lightblue;
+
+}
+.navbar-brand:hover{
+  color: #80F5D3 !important;
+}
+</style>
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand navbar-brand-logo" href="{% url 'index' %}" aria-label="Sai Prasad Hospital">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="brand-mark-text">SP</span>
+      </span>
+      <span class="brand-text">
+        <span class="brand-name">Sai Prasad</span>
+        <span class="brand-sub">Hospital</span>
+      </span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ml-auto text-center pt-2 pt-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">
+            <ion-icon name="home-sharp"></ion-icon> Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">
+            <ion-icon name="people"></ion-icon> About
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'services' %}">
+            <ion-icon name="medkit"></ion-icon> Services
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">
+            <ion-icon name="people"></ion-icon> Contact
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">
+            <i class="fas fa-sign-in-alt"></i> Admin Login
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="site-main">
+  {% block body %}
+  {% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+        <div class="footer-title">Hospital Management System</div>
+        <div class="footer-subtitle">Care. Comfort. Community.</div>
+        <div class="footer-subtitle">technical support </div>
+        <div class="footer-subtitle">Sanket Sambare</div>
+      </div>
+      <div class="col-md-6 text-center text-md-right">
+        <div class="footer-links">
+          <a href="{% url 'index' %}">Home</a>
+          <span class="footer-sep">|</span>
+          <a href="{% url 'about' %}">About</a>
+          <span class="footer-sep">|</span>
+          <a href="{% url 'services' %}">Services</a>
+          <span class="footer-sep">|</span>
+          <a href="{% url 'contact' %}">Contact</a>
+        </div>
+        <div class="footer-copy">
+          &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body></html>

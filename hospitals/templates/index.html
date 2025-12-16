@@ -1,0 +1,108 @@
+{% extends 'navigation.html' %}
+{% load static %}
+{% block extra_head %}
+<style media="screen">
+  .jumbotron {
+    width: 100%;
+    height: 550px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;     /* vertical center */
+    justify-content: center; /* horizontal center */
+    text-align: center;
+  }
+
+  .jumbotron .bg-video{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .jumbotron .hero-overlay{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(28, 126, 214, 0.45),
+      rgba(0, 0, 0, 0.55)
+    );
+    z-index: 1;
+  }
+
+  .jumbotron .hero-content{
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .hero-title{
+    margin: 0;
+    color: #fff;
+    font-weight: 800;
+    line-height: 1.15;
+    font-size: clamp(1.6rem, 3.2vw, 3rem);
+    text-shadow: 0 6px 24px rgba(0,0,0,0.45);
+  }
+
+  .hero-subtitle{
+    margin: 0.75rem 0 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.45;
+  }
+
+  .alert {
+    margin: 0px;
+  }
+
+  .glow {
+    font-size: 50px;
+    color: black;
+    margin-right: 5px;
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+
+  @-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+    }
+    to {
+      text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+  }
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+    }
+    to {
+      text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
+  <video class="bg-video" autoplay muted loop playsinline preload="metadata">
+    <source src="{% static 'images/hospital.mp4' %}" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h5 class="hero-title">Care you can trust. A team that’s always with you.</h5>
+    <p class="hero-subtitle">For patients: quick support, clear information, and easy appointments—backed by our dedicated doctors and staff.</p>
+  </div>
+</div>
+{% endblock%}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'theme.css' %}">
+
+  {% block extra_head %}{% endblock %}
+
+  <style media="screen">
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root{
+      --admin-sidebar-width: 240px;
+      --admin-sidebar-width-md: 90px;
+      --admin-topbar-height: 70px; /* keep in sync with fixed-top navbar */
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden; /* prevent horizontal scrollbar */
+    }
+    /* Hide scrollbars (keep scrolling enabled) */
+    body {
+      padding-left: var(--admin-sidebar-width);
+      padding-top: var(--admin-topbar-height);
+      overflow-y: auto;
+      -ms-overflow-style: none; /* IE/Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+    a:link {
+      text-decoration: none;
+    }
+
+    a {
+      color: white;
+    }
+
+    a:hover {
+      color: white;
+    }
+
+    main {
+      position: relative;
+      min-height: 100vh;
+      height: auto;
+      padding-top: 0; /* handled by body padding-top */
+    }
+
+    .menu {
+      background: #21446B;
+      height: calc(100vh - var(--admin-topbar-height));
+      width: var(--admin-sidebar-width);
+      position: fixed;
+      top: var(--admin-topbar-height);
+      left: 0;
+      z-index: 1030; /* above page content */
+      outline: none;
+      overflow: visible; /* allow right-side dropdown popup to be visible */
+      -ms-overflow-style: none; /* IE/Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .menu::-webkit-scrollbar{
+      width: 0;
+      height: 0;
+    }
+    /* Make the top navbar full-width (fills the top-left area above sidebar) */
+    .admin-topbar{
+      left: 0;
+      width: 100%;
+      z-index: 1040; /* above sidebar */
+    }
+    .menu .avatar {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 2em 0.5em;
+      text-align: center;
+    }
+    .menu .avatar img {
+      width: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #ffea92;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+    .menu .avatar h2 {
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+    .menu ul {
+      list-style: none;
+      padding: 0.5em 0;
+      margin: 0;
+    }
+    .menu ul li {
+      padding: 0.5em 1em 0.5em 3em;
+      font-size: 0.95em;
+      font-weight: regular;
+      background-repeat: no-repeat;
+      background-position: left 15px center;
+      background-size: auto 20px;
+      transition: all 0.15s linear;
+      cursor: pointer;
+    }
+    .menu ul li.icon-dashboard {
+      background-image: url("http://www.entypo.com/images//gauge.svg");
+    }
+    .menu ul li.icon-customers {
+      background-image: url("http://www.entypo.com/images//briefcase.svg");
+    }
+    .menu ul li.icon-users {
+      background-image: url("http://www.entypo.com/images//users.svg");
+    }
+    .menu ul li.icon-calendar {
+      background-image: url("http://www.entypo.com/images//calendar.svg");
+    }
+
+    .menu ul li:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    .menu ul li:focus {
+      outline: none;
+    }
+    @media screen and (max-width: 900px) and (min-width: 400px) {
+      body {
+        padding-left: var(--admin-sidebar-width-md);
+      }
+      .menu {
+        width: var(--admin-sidebar-width-md);
+      }
+      .menu .avatar {
+        padding: 0.5em;
+        position: relative;
+      }
+      .menu .avatar img {
+        width: 60px;
+      }
+      .menu .avatar h2 {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 100px;
+        margin: 0;
+        min-width: 200px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.4);
+        transform: translate3d(-20px, -50%, 0);
+        transition: all 0.15s ease-in-out;
+      }
+      .menu .avatar:hover h2 {
+        opacity: 1;
+        transform: translate3d(0px, -50%, 0);
+      }
+      .menu ul li {
+        height: 60px;
+        background-position: center center;
+        background-size: 30px auto;
+        position: relative;
+      }
+      .menu ul li span {
+        opacity: 0;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0.2em 0.5em;
+        border-radius: 4px;
+        top: 50%;
+        left: 80px;
+        transform: translate3d(-15px, -50%, 0);
+        transition: all 0.15s ease-in-out;
+      }
+      .menu ul li span:before {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 5px solid rgba(0, 0, 0, 0.5);
+        transform: translateY(-50%);
+      }
+      .menu ul li:hover span {
+        opacity: 1;
+        transform: translate3d(0px, -50%, 0);
+      }
+    }
+    @media screen and (max-width: 400px) {
+      body {
+        padding-left: 0;
+      }
+      .menu {
+        width: 230px;
+        box-shadow: 0 0 0 100em rgba(0, 0, 0, 0);
+        transform: translate3d(-230px, 0, 0);
+        transition: all 0.3s ease-in-out;
+      }
+      .menu .smartphone-menu-trigger {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        left: 100%;
+        background: #21446B;
+      }
+      .menu .smartphone-menu-trigger:before,
+      .menu .smartphone-menu-trigger:after {
+        content: '';
+        width: 50%;
+        height: 2px;
+        background: #fff;
+        border-radius: 10px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+      .menu .smartphone-menu-trigger:after {
+        top: 55%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+      .menu ul li {
+        padding: 1em 1em 1em 3em;
+        font-size: 1.2em;
+      }
+      .menu:focus {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 0 0 100em rgba(0, 0, 0, 0.6);
+      }
+      .menu:focus .smartphone-menu-trigger {
+        pointer-events: none;
+      }
+    }
+
+  </style>
+</head>
+<body class="admin-body">
+  <!-- partial:index.partial.html -->
+  <nav class="menu" tabindex="0">
+    <div class="smartphone-menu-trigger"></div>
+    <header class="avatar">
+      <img src="{% static 'images/h8.png' %}" />
+      <br><br>
+      <h6>Admin</h6>
+
+    </header>
+    <div class="menu-scroll">
+    <ul>
+      <li tabindex="0" class="icon-dashboard"> <a href="{% url 'admin_home' %}"><span>Dashboard</span></a> </li>
+
+      <li tabindex="0" class="nav-item dropdown icon-customers">
+        <a href="#" class="nav-link dropdown-toggle text-dark bg-light" id="doctorDropdown"
+				data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Doctor</a>
+				<div class="dropdown-menu">
+					<a href="{% url 'add_doctor' %}" class="dropdown-item">Add Doctor</a>
+					<a href="{% url 'view_doctor' %}" class="dropdown-item">View Doctor</a>
+				</div>
+      </li>
+
+      <li tabindex="0" class="nav-item dropdown icon-users">
+        <a href="#" class="nav-link dropdown-toggle text-dark bg-light" id="patientDropdown"
+				data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Patient</a>
+				<div class="dropdown-menu">
+					<a href="{% url 'add_patient' %}" class="dropdown-item">Add Patient</a>
+					<a href="{% url 'view_patient' %}" class="dropdown-item">View Patient</a>
+				</div>
+      </li>
+
+      <li tabindex="0" class="nav-item dropdown icon-calendar">
+        <a href="#" class="nav-link dropdown-toggle text-dark bg-light" id="appointmentDropdown"
+				data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Appointment</a>
+				<div class="dropdown-menu">
+					<a href="{% url 'add_appointment' %}" class="dropdown-item">Add Appointment</a>
+					<a href="{% url 'view_appointment' %}" class="dropdown-item">View Appointment</a>
+				</div>
+      </li>
+
+        <li tabindex="0" class="nav-item dropdown icon-calendar">
+        <a href="#" class="nav-link dropdown-toggle text-dark bg-light" id="queriesDropdown"
+				data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> View Queries</a>
+				<div class="dropdown-menu">
+					<a href="{% url 'unread_queries' %}" class="dropdown-item">Unread Queries</a>
+					<a href="{% url 'read_queries' %}" class="dropdown-item">Read Queries</a>
+				</div>
+      </li>
+    </ul>
+    </div>
+
+    <div class="menu-bottom">
+      <a href="{% url 'admin_profile' %}" class="admin-profile-btn">
+        <i class="fa fa-user-circle"></i> Profile
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- nav start -->
+    <div class="bs-example">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top admin-topbar">
+        <a href="{% url 'admin_home' %}" class="navbar-brand">Hospital Management System</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+          <div class="ml-auto d-flex align-items-center">
+            <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm admin-logout-btn">
+              <i class="fa fa-power-off"></i> Logout
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <!-- nav end -->
+
+    <!-- content start-->
+    <div class="admin-content">
+      {% block content %}
+
+      {% endblock content %}
+    </div>
+    <!-- content end-->
+
+    <footer class="site-footer">
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+            <div class="footer-title">Hospital Management System</div>
+            <div class="footer-subtitle">Admin Panel</div>
+          </div>
+          <div class="col-md-6 text-center text-md-right">
+            <div class="footer-links">
+              <a href="{% url 'admin_home' %}">Dashboard</a>
+              <span class="footer-sep">|</span>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+            <div class="footer-copy">
+              &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Reliable sidebar dropdown (works even if Bootstrap dropdown JS is blocked)
+      (function () {
+        function closeAll(except) {
+          document.querySelectorAll('.menu .dropdown-menu.show').forEach(function (m) {
+            if (m !== except) m.classList.remove('show');
+          });
+          document.querySelectorAll('.menu .dropdown-toggle.show').forEach(function (t) {
+            t.classList.remove('show');
+            t.setAttribute('aria-expanded', 'false');
+          });
+        }
+
+        function positionMenu(toggle, menu) {
+          var r = toggle.getBoundingClientRect();
+          // Temporarily show to measure
+          menu.classList.add('show');
+          var mw = menu.offsetWidth;
+          var mh = menu.offsetHeight;
+
+          var gap = 4; // smaller distance between menu item and dropdown
+          var left = r.right + gap;
+          var top = r.top;
+
+          // If it overflows right, open to the left
+          if (left + mw > window.innerWidth - gap) {
+            left = r.left - mw - gap;
+          }
+          // Keep inside viewport vertically
+          if (top + mh > window.innerHeight - gap) {
+            top = Math.max(gap, window.innerHeight - mh - gap);
+          }
+
+          menu.style.left = left + 'px';
+          menu.style.top = top + 'px';
+        }
+
+        document.querySelectorAll('.menu .dropdown-toggle').forEach(function (toggle) {
+          toggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var menu = toggle.parentElement.querySelector('.dropdown-menu');
+            if (!menu) return;
+
+            var isOpen = menu.classList.contains('show');
+            closeAll(menu);
+
+            if (!isOpen) {
+              toggle.classList.add('show');
+              toggle.setAttribute('aria-expanded', 'true');
+              positionMenu(toggle, menu);
+            } else {
+              menu.classList.remove('show');
+              toggle.classList.remove('show');
+              toggle.setAttribute('aria-expanded', 'false');
+            }
+          });
+        });
+
+        document.addEventListener('click', function () {
+          closeAll(null);
+        });
+        window.addEventListener('resize', function () {
+          closeAll(null);
+        });
+        window.addEventListener('scroll', function () {
+          closeAll(null);
+        }, true);
+      })();
+    </script>
+  </main>
+</body>
+</html>
