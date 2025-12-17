@@ -50,7 +50,7 @@ Queries:
 ### 1) Clone the repository
 git clone <https://github.com/Narayan-Sambare/Hospital_Management_System>
 
-cd HospitalManagementSystem
+cd Hospital_Management_System
 
 ### 2) Create a virtual environment
 python -m venv venv
